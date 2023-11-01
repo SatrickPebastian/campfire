@@ -61,7 +61,7 @@ jobs:
         docker push campfirert/campfire-backend:${{ github.sha }}
         docker push campfirert/campfire-backend:latest
 
-    - name: Build and Push adapter_frontend
+    - name: Build and Push adapter-frontend
       if: contains(steps.changed-files.outputs.all_changed_files, 'adapter-frontend/')
       run: |
         cd adapter-frontend

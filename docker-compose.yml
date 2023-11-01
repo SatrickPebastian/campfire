@@ -21,12 +21,12 @@ services:
       retries: 5
 
   campfire-frontend:
-    image: campfirert/campfire-frontend:1.0
+    image: campfirert/campfire-frontend:latest
     ports: 
       - 5000:4173
 
   campfire-backend: 
-    image: campfirert/campfire-backend:1.0
+    image: campfirert/campfire-backend:latest
     ports:
       - 3000:3000
     depends_on:
@@ -36,7 +36,7 @@ services:
         condition: service_started
 
   messaging-system:
-    image: campfirert/messaging-system:1.0
+    image: campfirert/messaging-system:latest
     ports:
       - 3001:3001
     depends_on:
@@ -44,7 +44,7 @@ services:
         condition: service_healthy
 
   adapter_frontend:
-    image: campfirert/adapter-frontend:1.0
+    image: campfirert/adapter-frontend:latest
     ports:
       - 8080:8080
 
