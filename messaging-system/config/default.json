@@ -1,0 +1,6 @@
+{
+  "amqp_host": "amqp://rabbitmq:5672",
+  "mongodb_host": "mongodb://db:27017/campfire_adapter",
+  "privateKeyPath":"/home/aabed/.ssh/id_rsa",
+  "port": 3001
+}

@@ -1,0 +1,5 @@
+{
+  "amqp_host": "amqp://rabbitmq:5672",
+  "mongodb_host": "mongodb://db:27017/campfire",
+  "port": 3000
+}

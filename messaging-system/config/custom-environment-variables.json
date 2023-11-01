@@ -1,0 +1,4 @@
+{
+  "amqp_host": "rabbitmq:5672",
+  "mongodb_host": "mongodb://db:27017/campfire"
+}

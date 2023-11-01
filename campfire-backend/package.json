@@ -1,0 +1,23 @@
+{
+  "name": "campfire-backend",
+  "version": "1.0.0",
+  "description": "Backend for Campfire project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.reutlingen-university.de/campfire-project/campfire-backend.git"
+  },
+  "author": "Campfire",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "config": "^3.3.9",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "joi": "^17.9.2",
+    "mongoose": "^7.1.1"
+  }
+}

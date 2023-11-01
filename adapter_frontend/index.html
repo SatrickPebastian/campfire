@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+
+    <title>Robot Configuration</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Robot Configuration</h1>
+
+    <label for="name">Robot Name:</label>
+    <input type="text" id="name" />
+
+    <label for="host">Host:</label>
+    <input type="text" id="host" />
+
+    <label for="username">Username:</label>
+    <input type="text" id="username" />
+
+    <label for="port">Port:</label>
+    <input type="number" id="port" />
+    <button id="save" type="button">Save</button>
+    <script src="./renderer.js"></script>
+  </body>
+</html>

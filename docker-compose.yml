@@ -1,0 +1,52 @@
+version: '3'
+services:
+  db:
+    image: mongo:latest
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  campfire-frontend:
+    image: campfirert/campfire-frontend:1.0
+    ports: 
+      - 5000:4173
+
+  campfire-backend: 
+    image: campfirert/campfire-backend:1.0
+    ports:
+      - 3000:3000
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      messaging-system:
+        condition: service_started
+
+  messaging-system:
+    image: campfirert/messaging-system:1.0
+    ports:
+      - 3001:3001
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  adapter_frontend:
+    image: campfirert/adapter_frontend:1.0
+    ports:
+      - 8080:8080
+
+volumes:
+  mongodb_data:

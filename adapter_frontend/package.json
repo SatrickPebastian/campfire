@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "axios": "^1.4.0",
+    "electron": "^25.0.1",
+    "electron-alert": "^0.1.20"
+  },
+  "name": "adapter_frontend",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
