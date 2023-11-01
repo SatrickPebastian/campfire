@@ -26,9 +26,17 @@ jobs:
 
     - name: Docker Login
       run: docker login -u "${{ secrets.CI_REGISTRY_USER }}" -p "${{ secrets.CI_REGISTRY_PASSWORD }}"
+
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
       
     - name: Log modified files
       run: echo "Modified files - ${{ toJson(github.event.head_commit.modified) }}"
+
+    - name: Log modified files from event
+      run: echo "Modified files - ${{ toJson(github.event.pull_request.changed_files) }}"
       
     - name: Build and Push campfire-frontend
       if: startsWith(github.event.head_commit.modified, 'campfire-frontend/')
