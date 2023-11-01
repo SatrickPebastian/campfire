@@ -44,7 +44,7 @@ services:
         condition: service_healthy
 
   adapter_frontend:
-    image: campfirert/adapter_frontend:1.0
+    image: campfirert/adapter-frontend:1.0
     ports:
       - 8080:8080
 

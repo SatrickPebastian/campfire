@@ -64,11 +64,11 @@ jobs:
     - name: Build and Push adapter_frontend
       if: contains(steps.changed-files.outputs.all_changed_files, 'adapter-frontend/')
       run: |
-        cd adapter_frontend
-        docker build -t campfirert/adapter_frontend:${{ github.sha }} .
-        docker tag campfirert/adapter_frontend:${{ github.sha }} campfirert/adapter_frontend:latest
-        docker push campfirert/adapter_frontend:${{ github.sha }}
-        docker push campfirert/adapter_frontend:latest
+        cd adapter-frontend
+        docker build -t campfirert/adapter-frontend:${{ github.sha }} .
+        docker tag campfirert/adapter-frontend:${{ github.sha }} campfirert/adapter-frontend:latest
+        docker push campfirert/adapter-frontend:${{ github.sha }}
+        docker push campfirert/adapter-frontend:latest
 
     - name: Build and Push messaging-system
       if: contains(steps.changed-files.outputs.all_changed_files, 'messaging-system/')
