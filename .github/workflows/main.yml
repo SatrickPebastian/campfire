@@ -37,9 +37,25 @@ jobs:
 
     - name: Log modified files from event
       run: echo "Modified files - ${{ toJson(github.event.pull_request.changed_files) }}"
+
+    - name: Get changed files with predefined action
+      id: changed-files
+      uses: tj-actions/changed-files@v37
+
+    - name: List all changed files
+      run: |
+        echo '# FILES with tj-actions/changed-files' >> "${GITHUB_STEP_SUMMARY}"
+        echo '' >> "${GITHUB_STEP_SUMMARY}"
+        echo '```' >> "${GITHUB_STEP_SUMMARY}"
+
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          echo "$file was changed" >> "${GITHUB_STEP_SUMMARY}"
+        done
+
+        echo '```' >> "${GITHUB_STEP_SUMMARY}"
       
     - name: Build and Push campfire-frontend
-      if: startsWith(github.event.head_commit.modified, 'campfire-frontend/')
+      if: contains(steps.changed-files.outputs.all_changed_files, 'campfire-frontend/')
       run: |
         cd campfire-frontend
         docker build -t campfirert/campfire-frontend:${{ github.sha }} .
@@ -48,7 +64,7 @@ jobs:
         docker push campfirert/campfire-frontend:latest
 
     - name: Build and Push campfire-backend
-      if: startsWith(github.event.head_commit.modified, 'campfire-backend/')
+      if: contains(steps.changed-files.outputs.all_changed_files, 'campfire-backend/')
       run: |
         cd campfire-backend
         docker build -t campfirert/campfire-backend:${{ github.sha }} .
@@ -57,7 +73,7 @@ jobs:
         docker push campfirert/campfire-backend:latest
 
     - name: Build and Push adapter_frontend
-      if: startsWith(github.event.head_commit.modified, 'adapter-frontend/')
+      if: contains(steps.changed-files.outputs.all_changed_files, 'adapter-frontend/')
       run: |
         cd adapter_frontend
         docker build -t campfirert/adapter_frontend:${{ github.sha }} .
@@ -66,7 +82,7 @@ jobs:
         docker push campfirert/adapter_frontend:latest
 
     - name: Build and Push messaging-system
-      if: contains(github.event.head_commit.modified, 'messaging-system/')
+      if: contains(steps.changed-files.outputs.all_changed_files, 'messaging-system/')
       run: |
         cd messaging-system
         docker build -t campfirert/messaging-system:${{ github.sha }} .
