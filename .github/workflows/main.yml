@@ -7,7 +7,7 @@ on:
     paths:
       - 'campfire-frontend/**'
       - 'campfire-backend/**'
-      - 'adapter_frontend/**'
+      - 'adapter-frontend/**'
       - 'messaging-system/**'
 
 env:
