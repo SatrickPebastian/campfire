@@ -10,7 +10,6 @@ function createWindow () {
   })
 
   ipcMain.on('save-robot', (event, config) => {
-    console.log("test")
     axios
       .post('http://messaging-system:3001/api/robots/', config)
       .then(() => {
