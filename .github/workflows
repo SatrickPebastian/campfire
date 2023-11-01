@@ -1,0 +1,64 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'campfire-frontend/**'
+      - 'campfire-backend/**'
+      - 'adapter_frontend/**'
+      - 'messaging-system/**'
+
+env:
+  DOCKER_DRIVER: overlay2
+
+jobs:
+  setup-build-publish-deploy:
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:19.03.12-dind
+        options: --privileged
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Docker Login
+      run: docker login -u "${{ secrets.CI_REGISTRY_USER }}" -p "${{ secrets.CI_REGISTRY_PASSWORD }}"
+
+    - name: Build and Push campfire-frontend
+      if: contains(github.event.head_commit.modified, 'campfire-frontend/')
+      run: |
+        cd campfire-frontend
+        docker build -t campfirert/campfire-frontend:${{ github.sha }} .
+        docker tag campfirert/campfire-frontend:${{ github.sha }} campfirert/campfire-frontend:latest
+        docker push campfirert/campfire-frontend:${{ github.sha }}
+        docker push campfirert/campfire-frontend:latest
+
+    - name: Build and Push campfire-backend
+      if: contains(github.event.head_commit.modified, 'campfire-backend/')
+      run: |
+        cd campfire-backend
+        docker build -t campfirert/campfire-backend:${{ github.sha }} .
+        docker tag campfirert/campfire-backend:${{ github.sha }} campfirert/campfire-backend:latest
+        docker push campfirert/campfire-backend:${{ github.sha }}
+        docker push campfirert/campfire-backend:latest
+
+    - name: Build and Push adapter_frontend
+      if: contains(github.event.head_commit.modified, 'adapter_frontend/')
+      run: |
+        cd adapter_frontend
+        docker build -t campfirert/adapter_frontend:${{ github.sha }} .
+        docker tag campfirert/adapter_frontend:${{ github.sha }} campfirert/adapter_frontend:latest
+        docker push campfirert/adapter_frontend:${{ github.sha }}
+        docker push campfirert/adapter_frontend:latest
+
+    - name: Build and Push messaging-system
+      if: contains(github.event.head_commit.modified, 'messaging-system/')
+      run: |
+        cd messaging-system
+        docker build -t campfirert/messaging-system:${{ github.sha }} .
+        docker tag campfirert/messaging-system:${{ github.sha }} campfirert/messaging-system:latest
+        docker push campfirert/messaging-system:${{ github.sha }}
+        docker push campfirert/messaging-system:latest
