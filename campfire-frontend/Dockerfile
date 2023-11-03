@@ -16,8 +16,8 @@ COPY . .
 # Compile application
 RUN npm run build
 
-# Expose application on port 4137
-EXPOSE 4137
+# Expose application on port 4173
+EXPOSE 4173
 
 # Run application
 CMD [ "npm", "run", "preview" ]
