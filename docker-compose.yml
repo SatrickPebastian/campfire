@@ -23,7 +23,7 @@ services:
   campfire-frontend:
     image: campfirert/campfire-frontend:latest
     ports: 
-      - 5000:4173
+      - 4173:4173
 
   campfire-backend: 
     image: campfirert/campfire-backend:latest
@@ -43,7 +43,7 @@ services:
       rabbitmq:
         condition: service_healthy
 
-  adapter_frontend:
+  adapter-frontend:
     image: campfirert/adapter-frontend:latest
     ports:
       - 8080:8080
